@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myModule">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <link href="assets/css/bootstrap-theme.css" rel="stylesheet">
+    <link href="assets/css/bootstrap-theme.min.css" rel="stylesheet">
+	<style>
+		* {
+			background:#64a1c4;
+		}
+		pre {
+			background:#41c4f4;
+		}
+		li {
+			list-style: none;
+			display: inline;
+		}
+		.btn {
+			margin-top: 10px;
+		}
+	</style>
+</head>
+<body>
+	<div class="wrap" ng-controller="ctrlRead">
+		<div class="total"> <pre>Total Page: {{pagedItems.length|json}}</pre></div>
+		<div class="total"> <pre>Current Page: {{currentPage|json}}</pre></div>
+		<div class="total"> <pre>Current Page: {{sort|json}}</pre></div>
+		<div class="table-responsive">
+			<table class="table">
+				<thead>
+					<tr>
+						<th class="id" custom-sort order="'id'" sort="sort">Id&nbsp;</th>
+						<th class="name" custom-sort order="'name'" sort="sort">Name&nbsp;</th>
+						<th class="description" custom-sort order="'description'" sort="sort">Description&nbsp;</th>
+						<th class="gender" custom-sort order="'gender'" sort="sort">Gender&nbsp;</th>
+						<th class="status" custom-sort order="'status'" sort="sort">Status&nbsp;</th>
+				
+					</tr>
+				</thead>
+				<div class="table-responsive">
+					<tbody class="table">
+						<tr ng-repeat="item in pagedItems[currentPage] | orderBy:sort.sortingOrder:sort.reverse">
+							<td>{{item.id}}</td>
+							<td>{{item.name}}</td>
+							<td>{{item.description}}</td>
+							<td>{{item.gender}}</td>
+							<td>{{item.status}}</td>
+							
+						</tr>
+					</tbody>
+				</div>
+			</table>
+		</div>
+		<div class="pagination pull-left">
+			<ul>
+				<li ng-class="{disabled: currentPage == 0}">
+					<button class="btn btn-primary"  href ng-click="prevPage()">Prev</button>
+				</li>
+				<li ng-repeat="n in range(pagedItems.length, currentPage, currentPage + gap) "
+					 ng-class="{active: n == currentPage}"
+				 ng-click="setPage()">
+					 <button class="btn btn-primary" href ng-bind="n + 1">1</button>
+				</li>
+				<li ng-class="{disabled: (currentPage) == pagedItems.length - 1}">
+					<button class="btn btn-primary"  href ng-click="nextPage()">Next</button>
+				</li>
+			</ul>
+		</div>
+	</div>
+	
+	<!--Script-->
+	<script src="assets/js/bootstrap.js"></script>
+	<script src="assets/js/bootstrap.min.js"></script>
+	<script src="assets/js/npm.js"></script>
+	<script src="assets/js/angular.min.js"></script>
+	<script src="assets/js/script.js"></script>
+</body>
+</html>
